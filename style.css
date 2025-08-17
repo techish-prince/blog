@@ -28,3 +28,57 @@ pre code{display:block;padding:16px;overflow:auto}
 input,textarea{background:#0e1730;border:1px solid #1b2642;border-radius:12px;color:var(--text);padding:10px;width:100%}
 label{font-size:.9rem;color:var(--muted)}
 .small{font-size:.9rem;color:var(--muted)}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.nav-links li a:hover {
+  color: #ff7eb3;
+}
+
+/* Hamburger (mobile) */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Sidebar */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0; right: 0;
+  background: rgba(0,0,0,0.9);
+  overflow-x: hidden;
+  transition: 0.4s;
+  padding-top: 60px;
+  border-left: 3px solid #ff7eb3;
+}
+.sidebar a {
+  display: block;
+  padding: 15px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  transition: 0.3s;
+}
+.sidebar a:hover {
+  background: #ff7eb3;
+  color: #111;
+}
+
