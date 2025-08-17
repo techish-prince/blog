@@ -1,0 +1,36 @@
+[
+  {
+    "slug": "best-laptops-under-35k-2025",
+    "title": "Best Laptops Under \u20b935,000 (2025) \u2014 Coding Friendly Picks",
+    "date": "2025-08-17",
+    "tags": [
+      "Laptops",
+      "Budget",
+      "Guide"
+    ],
+    "excerpt": "Lenovo V15 G3, Dell Inspiron 3520, ASUS Vivobook\u2014specs, tips, and how to pick the right one for coding.",
+    "read": "4 min read"
+  },
+  {
+    "slug": "python-day-01-setup",
+    "title": "Python Day 01 \u2014 Install, VS Code Setup, First Program",
+    "date": "2025-08-17",
+    "tags": [
+      "Python",
+      "Beginners"
+    ],
+    "excerpt": "Python install, VS Code setup, and your first print() program with common gotchas.",
+    "read": "5 min read"
+  },
+  {
+    "slug": "python-day-03-operators",
+    "title": "Python Day 03 \u2014 Operators Cheat Sheet",
+    "date": "2025-08-17",
+    "tags": [
+      "Python",
+      "Notes"
+    ],
+    "excerpt": "Arithmetic, assignment, comparison, logical, bitwise\u2014concise examples you can copy.",
+    "read": "3 min read"
+  }
+]

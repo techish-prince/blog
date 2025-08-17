@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" href="assets/style.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230b1220'/><text x='50' y='60' font-size='60' text-anchor='middle' fill='%2360a5fa'>P</text></svg>">
+<script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script defer src="./config.js"></script>
+<title>Techish Prince</title>
+
+</head>
+<body>
+  <div class="container post">
+    <nav class="nav">
+      <div class="brand"><a href="./">← Back to Home</a></div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+
+    <article>
+      <h1 id="title">Loading…</h1>
+      <div class="meta" id="meta"></div>
+      <div class="content" id="content">Please wait…</div>
+    </article>
+
+    <section id="comments" style="margin-top:32px"></section>
+
+    <footer>
+      © <span id="year"></span> <span id="site-author"></span>
+    </footer>
+  </div>
+
+<script>
+const params = new URLSearchParams(location.search);
+const slug = params.get('slug');
+document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('site-author').textContent = window.SITE_CONFIG.author;
+
+fetch('posts/posts.json').then(r=>r.json()).then(list => { 
+  const post = list.find(p => p.slug === slug) || list[0];
+  document.title = post.title + " • " + window.SITE_CONFIG.title;
+  document.getElementById('title').textContent = post.title;
+  document.getElementById('meta').textContent = post.date + " • " + (post.read||"3 min read");
+  return fetch('posts/' + post.slug + '.md').then(r=>r.text());
+}).then(md => {
+  document.getElementById('content').innerHTML = marked.parse(md);
+  const c = window.SITE_CONFIG.comments;
+  if(c && c.enabled){
+    const s = document.createElement('script');
+    s.src = "https://giscus.app/client.js";
+    s.setAttribute('data-repo', c.repo);
+    if(c.repoId) s.setAttribute('data-repo-id', c.repoId);
+    s.setAttribute('data-category', c.category);
+    if(c.categoryId) s.setAttribute('data-category-id', c.categoryId);
+    s.setAttribute('data-mapping', c.mapping);
+    s.setAttribute('data-reactions-enabled', c.reactionsEnabled);
+    s.setAttribute('data-emit-metadata', c.emitMetadata);
+    s.setAttribute('data-theme', c.theme);
+    s.setAttribute('crossorigin', 'anonymous');
+    s.async = true;
+    document.getElementById('comments').appendChild(s);
+  } else {
+    document.getElementById('comments').innerHTML = "<p class='small'>Comments are disabled. Enable Giscus in <code>config.js</code>.</p>";
+  }
+});
+</script>
+</body>
+</html>
