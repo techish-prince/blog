@@ -1,71 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="stylesheet" href="assets/style.css" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230b1220'/><text x='50' y='60' font-size='60' text-anchor='middle' fill='%2360a5fa'>P</text></svg>">
-<script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script defer src="./config.js"></script>
-<title>Techish Prince</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Post | Techish Prince</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="container post">
-    <nav class="nav">
-      <div class="brand"><a href="./">← Back to Home</a></div>
-      <div style="display:flex;gap:12px;align-items:center">
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </div>
-    </nav>
+<body class="bg-[#0b1220] text-white font-sans">
 
-    <article>
-      <h1 id="title">Loading…</h1>
-      <div class="meta" id="meta"></div>
-      <div class="content" id="content">Please wait…</div>
-    </article>
+  <!-- Navbar -->
+  <header class="w-full bg-[#0b1220] shadow-md fixed top-0 left-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center py-3">
+      <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Techish Prince</a>
+      <nav class="hidden md:flex gap-6 text-lg font-medium">
+        <a href="index.html" class="hover:text-blue-400 transition">Home</a>
+        <a href="index.html#posts" class="hover:text-blue-400 transition">Blog</a>
+        <a href="index.html#about" class="hover:text-blue-400 transition">About</a>
+        <a href="index.html#contact" class="hover:text-blue-400 transition">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-    <section id="comments" style="margin-top:32px"></section>
+  <!-- Post Content -->
+  <main class="max-w-4xl mx-auto px-6 pt-28 pb-16">
+    <article id="post-content" class="prose prose-invert max-w-none"></article>
+  </main>
 
-    <footer>
-      © <span id="year"></span> <span id="site-author"></span>
-    </footer>
-  </div>
+  <!-- Footer -->
+  <footer class="text-center py-6 text-gray-400 text-sm border-t border-gray-700">
+    © <span id="year"></span> Prince Kumar. Built with ❤️ and hosted free on GitHub Pages.
+  </footer>
 
-<script>
-const params = new URLSearchParams(location.search);
-const slug = params.get('slug');
-document.getElementById('year').textContent = new Date().getFullYear();
-document.getElementById('site-author').textContent = window.SITE_CONFIG.author;
+  <script>
+    // Year update
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-fetch('posts/posts.json').then(r=>r.json()).then(list => { 
-  const post = list.find(p => p.slug === slug) || list[0];
-  document.title = post.title + " • " + window.SITE_CONFIG.title;
-  document.getElementById('title').textContent = post.title;
-  document.getElementById('meta').textContent = post.date + " • " + (post.read||"3 min read");
-  return fetch('posts/' + post.slug + '.md').then(r=>r.text());
-}).then(md => {
-  document.getElementById('content').innerHTML = marked.parse(md);
-  const c = window.SITE_CONFIG.comments;
-  if(c && c.enabled){
-    const s = document.createElement('script');
-    s.src = "https://giscus.app/client.js";
-    s.setAttribute('data-repo', c.repo);
-    if(c.repoId) s.setAttribute('data-repo-id', c.repoId);
-    s.setAttribute('data-category', c.category);
-    if(c.categoryId) s.setAttribute('data-category-id', c.categoryId);
-    s.setAttribute('data-mapping', c.mapping);
-    s.setAttribute('data-reactions-enabled', c.reactionsEnabled);
-    s.setAttribute('data-emit-metadata', c.emitMetadata);
-    s.setAttribute('data-theme', c.theme);
-    s.setAttribute('crossorigin', 'anonymous');
-    s.async = true;
-    document.getElementById('comments').appendChild(s);
-  } else {
-    document.getElementById('comments').innerHTML = "<p class='small'>Comments are disabled. Enable Giscus in <code>config.js</code>.</p>";
-  }
-});
-</script>
+    // Dummy post content (future me alag JS file bana ke alag-alag post ka data store kar sakte ho)
+    const posts = {
+      "python-start": {
+        title: "Getting Started with Python",
+        date: "Aug 2025",
+        content: `
+          <h1 class="text-4xl font-bold mb-4">Getting Started with Python</h1>
+          <p class="text-gray-400">Published on Aug 2025 • 3 min read</p>
+          <p class="mt-6">Python ek beginner-friendly programming language hai jo bahut easy aur powerful hai. 
+          Is post me hum dekhenge Python setup, variables, aur ek chhota sa program kaise likhte hain.</p>
+          <pre class="bg-gray-900 p-4 rounded-lg mt-4"><code>print("Hello, Techish Prince!")</code></pre>
+        `
+      },
+      "laptops-2025": {
+        title: "Best Laptops for Coding in 2025",
+        date: "Aug 2025",
+        content: `
+          <h1 class="text-4xl font-bold mb-4">Best Laptops for Coding in 2025</h1>
+          <p class="text-gray-400">Published on Aug 2025 • 5 min read</p>
+          <p class="mt-6">Coding ke liye laptop choose karna mushkil ho sakta hai. 
+          Yahaan par maine top recommendations diye hain jo budget-friendly aur powerful hain.</p>
+          <ul class="list-disc pl-6 mt-4">
+            <li>MacBook Air M3 – Lightweight, super fast</li>
+            <li>Dell XPS 15 – Best Windows coding laptop</li>
+            <li>Lenovo ThinkPad X1 – Professional choice</li>
+          </ul>
+        `
+      },
+      "blog-learning": {
+        title: "Why Blogging Helps in Learning",
+        date: "Aug 2025",
+        content: `
+          <h1 class="text-4xl font-bold mb-4">Why Blogging Helps in Learning</h1>
+          <p class="text-gray-400">Published on Aug 2025 • 4 min read</p>
+          <p class="mt-6">Jab tum apna knowledge share karte ho blogging ke through, 
+          tum khud bhi zyada seekhte ho. Teaching is the best way of learning!</p>
+        `
+      }
+    };
+
+    // Get post id from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get("id");
+
+    if(posts[postId]) {
+      document.getElementById("post-content").innerHTML = posts[postId].content;
+    } else {
+      document.getElementById("post-content").innerHTML = "<h1 class='text-3xl font-bold'>Post not found</h1>";
+    }
+  </script>
 </body>
 </html>
